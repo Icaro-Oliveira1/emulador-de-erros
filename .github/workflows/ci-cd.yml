@@ -1,22 +1,31 @@
-name: CI/CD Pipeline Completo com GCP
+# Nome do workflow que aparecerá na aba "Actions" do GitHub
+name: CI/CD Pipeline de Deploy para GCP
 
+# Gatilho: este workflow roda sempre que houver um push no branch 'main'
 on:
   push:
-    branches: ["main"]
+    branches: ["main"] # Se seu branch principal for "master", mude aqui
 
 jobs:
   build-push-and-deploy:
+    # A máquina virtual que será usada para executar o job
     runs-on: ubuntu-latest
+
+    # Passos que serão executados sequencialmente
     steps:
+      # 1. Faz o checkout do seu código do repositório para a máquina virtual
       - name: Checkout do código
         uses: actions/checkout@v4
 
+      # 2. Faz login no Docker Hub usando os segredos
       - name: Login no Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # 3. Monta a imagem Docker e envia para o Docker Hub
+      #    Ele usará seu Makefile e Dockerfile automaticamente.
       - name: Build e Push da imagem Docker
         uses: docker/build-push-action@v5
         with:
@@ -24,6 +33,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/emulador-de-erros:latest
 
+      # 4. Conecta no servidor remoto via SSH e executa o deploy
       - name: Deploy no Servidor GCP
         uses: appleboy/ssh-action@master
         with:
@@ -32,11 +42,16 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # Puxa a imagem mais recente do Docker Hub
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/emulador-de-erros:latest # <-- MUDE AQUI
+            echo ">>> Puxando a nova imagem do Docker Hub..."
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/emulador-de-erros:latest
 
-            # Para e remove o container antigo para evitar conflitos
-            sudo docker stop emulador-de-erros-container || true
-            sudo docker rm emulador-de-erros-container || true 
+            # Remove qualquer container de teste antigo com este nome para evitar conflitos
+            echo ">>> Removendo container de teste antigo (se existir)..."
+            sudo docker rm emulador-de-erros-test-container || true
 
-            # Roda o novo container com a imagem atualizada
-            sudo docker run -d --name emulador-de-erros-container -p 80:8080 "${{ secrets.DOCKERHUB_USERNAME }}/emulador-de-erros:latest"
+            # Roda o novo container para demonstrar UM erro (ex: segmentation_fault) como um teste de deploy.
+            # O container irá executar, emular o erro e terminar.
+            echo ">>> Executando um teste de deploy com 'segmentation_fault'..."
+            sudo docker run --name emulador-de-erros-test-container ${{ secrets.DOCKERHUB_USERNAME }}/emulador-de-erros:latest segmentation_fault
+
+            echo ">>> Deploy e teste concluídos com sucesso!"

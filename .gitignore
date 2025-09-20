@@ -1,0 +1,9 @@
+# Ignorar a pasta que contém todos os binários compilados
+/bin
+
+# Se você usar o VS Code, é bom ignorar a pasta de configurações dele
+.vscode/
+
+# Ignorar arquivos temporários específicos do sistema operacional
+.DS_Store
+Thumbs.db
