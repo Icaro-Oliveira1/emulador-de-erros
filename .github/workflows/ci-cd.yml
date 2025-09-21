@@ -32,26 +32,3 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/emulador-de-erros:latest
-
-      # 4. Conecta no servidor remoto via SSH e executa o deploy
-      - name: Deploy no Servidor GCP
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # Puxa a imagem mais recente do Docker Hub
-            echo ">>> Puxando a nova imagem do Docker Hub..."
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/emulador-de-erros:latest
-
-            # Remove qualquer container de teste antigo com este nome para evitar conflitos
-            echo ">>> Removendo container de teste antigo (se existir)..."
-            sudo docker rm emulador-de-erros-test-container || true
-
-            # Roda o novo container para demonstrar UM erro (ex: segmentation_fault) como um teste de deploy.
-            # O container irá executar, emular o erro e terminar.
-            echo ">>> Executando um teste de deploy com 'segmentation_fault'..."
-            sudo docker run --name emulador-de-erros-test-container ${{ secrets.DOCKERHUB_USERNAME }}/emulador-de-erros:latest segmentation_fault
-
-            echo ">>> Deploy e teste concluídos com sucesso!"
