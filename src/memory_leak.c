@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h> // Para a função sleep()
-
+#include <string.h>
 // Define quantos bytes vamos alocar a cada iteração. 10 MB.
 #define TAMANHO_ALOCACAO (10 * 1024 * 1024)
 
