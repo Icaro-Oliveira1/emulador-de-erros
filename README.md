@@ -22,7 +22,7 @@ Para executar este projeto, você precisará ter as seguintes ferramentas instal
 - **Docker:** Essencial para construir e executar o projeto no ambiente de container isolado.
 - **Shell Script(WSL caso use windows)** Para Executar os comandos.
 - **GCC e Make:** Necessários apenas se você desejar compilar e executar o projeto localmente, fora de um container.
-- **Valgrind (Opcional):** Necessário apenas para a análise avançada de memória se executando **localmente**.
+- **(Opicional)htop:** Para vizualização mais detalhada do desempenho , para instalar execute sudo apt install htop
 
 ## Como Usar
 
@@ -55,7 +55,7 @@ Para executar localmente com docker
 
 2. **Executar um cenário direto pelo emulador:**
    ```bash
-   docker run --rm emulador-local "TIPO_DE_ERRO"
+   docker run --rm emulador-local TIPO_DE_ERRO
    ```
    Erros disponiveis: stack_overflow ,deadlock ,memory_leak,buffer_overflow,race_condition,segmentation_fault
 3. **Abrir um shell no container (opcional):**
@@ -70,3 +70,11 @@ Responsabilidades do desenvolvimento:
 Arquitetura, github actions , docker, demonstração stack_overflow : Erik Freire Ramos
 Demonstração deadlock e race_condition: Mateus Fonseca
 Demonstração buffer_overflow, segmentation fault , memory leak , core dumped: Icaro Oliveira
+
+## Para executar via Docker Hub
+
+execute no terminal:
+docker pull erikfreireramos/emulador-de-erros:latest
+
+docker run --rm erikfreireramos/emulador-de-erros:latest TIPO_DE_ERRO
+Erros disponiveis: stack_overflow ,deadlock ,memory_leak,buffer_overflow,race_condition,segmentation_fault

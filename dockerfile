@@ -1,15 +1,11 @@
-# --- ESTÁGIO 1: A Oficina de Compilação (Builder) ---
 FROM gcc:latest AS builder
 
 WORKDIR /app
 
-# Copia tudo (código fonte, Makefile, etc.)
 COPY . .
 
-# Roda o "make", que irá compilar tudo e criar a pasta "bin" com os executáveis.
 RUN make
 
-# --- ESTÁGIO 2: A Imagem Final de Produção ---
 FROM debian:bookworm-slim
 
 WORKDIR /app

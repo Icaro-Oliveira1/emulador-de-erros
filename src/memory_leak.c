@@ -1,11 +1,10 @@
-// Salve como: src/memory_leak_apresentacao.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h> // Para a função sleep()
 
 // --- PARÂMETROS DA DEMONSTRAÇÃO (fácil de alterar) ---
-#define MB_POR_ALOCACAO 20 // Quantos MB vazar a cada passo
+#define MB_POR_ALOCACAO 200 // Quantos MB vazar a cada passo
 #define NUMERO_DE_ALOCACOES 15 // Quantas vezes vazar
 #define INTERVALO_SEGUNDOS 1 // Pausa entre cada vazamento
 // --- FIM DOS PARÂMETROS ---
@@ -38,7 +37,7 @@ int main() {
         
         total_alocado += bytes_a_alocar;
         printf("Bloco #%d/%d alocado. Total vazado: %ld MB\n", i, NUMERO_DE_ALOCACOES, total_alocado / (1024 * 1024));
-        fflush(stdout); // Garante que a mensagem seja impressa imediatamente
+        fflush(stdout); // Garante que a     mensagem seja impressa imediatamente
 
         sleep(INTERVALO_SEGUNDOS);
     }
