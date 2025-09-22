@@ -4,7 +4,6 @@
 void estouro_infinito(int contador) {
     printf("Chamada da função número: %d\n", contador);
 
-    // A função chama a si mesma, mas com o contador incrementado.
     // Não há condição de parada, então isso nunca termina.
     estouro_infinito(contador + 1);
 }
