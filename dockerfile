@@ -18,7 +18,6 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     bash \
-    valgrind \
     && rm -rf /var/lib/apt/lists/*
 
 # Copiamos a pasta "bin" inteira e o script "emulador.sh"
