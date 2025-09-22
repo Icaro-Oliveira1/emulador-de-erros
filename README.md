@@ -1,4 +1,34 @@
-# emulador-de-erros
+# Emulador de Erros de Execução
+
+## Sobre o Projeto
+
+Este projeto, desenvolvido para a disciplina de Sistemas Operacionais, é um emulador projetado para simular e analisar uma variedade de erros comuns de execução em programas C. O objetivo principal é criar um ambiente seguro e isolado, utilizando containers Docker, para deliberadamente provocar falhas como `Segmentation Fault`, `Buffer Overflow`, `Memory Leak` e etc.
+
+Através desta ferramenta, é possível observar na prática como o Sistema Operacional lida com processos que se comportam mal, gerenciando a memória e aplicando mecanismos de proteção para garantir a estabilidade do sistema, além de observar também como funciona o gerenciamento de threads e processos
+
+## Tecnologias Utilizadas
+
+* **Linguagem:** C
+* **Containerização:** Docker
+* **Automação de Build:** Makefile
+* **Interface:** Shell Script (Bash)
+* **CI/CD:** GitHub Actions
+
+## Pré-requisitos
+
+Para executar este projeto, você precisará ter as seguintes ferramentas instaladas em seu ambiente (como o WSL no Windows):
+
+* **Git:** Para clonar o repositório.
+* **Docker:** Essencial para construir e executar o projeto no ambiente de container isolado (método recomendado).
+* **GCC e Make:** Necessários apenas se você desejar compilar e executar o projeto localmente, fora de um container.
+* **Valgrind (Opcional):** Necessário apenas para a análise avançada de memória se executando **localmente**.
+
+## Como Usar
+
+Primeiro, clone o repositório para sua máquina local:
+```bash
+git clone [https://github.com/Icaro-Oliveira1/emulador-de-erros.git](https://github.com/Icaro-Oliveira1/emulador-de-erros.git)
+cd emulador-de-erros
 
 # Primeiro, compilamos tudo de uma vez com o Makefile
 
