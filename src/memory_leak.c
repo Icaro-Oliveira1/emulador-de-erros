@@ -47,7 +47,7 @@ int main() {
     printf("Mostre o resultado no seu monitor de sistema agora.\n");
     printf("\n>>> Pressione Enter para finalizar o programa e liberar a memoria. <<<\n");
     
-    // PAUSA CLÍMAX: O programa para aqui, mantendo a memória alocada.
+    // O programa para aqui, mantendo a memória alocada.
     getchar();
 
     printf("Programa finalizado. O SO ira recuperar toda a memoria vazada.\n");
